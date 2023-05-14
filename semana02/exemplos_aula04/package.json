@@ -1,0 +1,12 @@
+{
+  "name": "exemplos_aula04",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "json-server --watch dados.json --port 50001"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

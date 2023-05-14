@@ -1,0 +1,12 @@
+{
+  "produtos": [
+    {
+      "nome": "Caneta",
+      "cor": "Azul"
+    },
+    {
+      "nome": "Caneta",
+      "cor": "Preta"
+    }
+  ]
+}
