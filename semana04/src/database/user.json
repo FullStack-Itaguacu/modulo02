@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Pedro",
+    "age": 25,
+    "job": "Developer",
+    "state": "Santa Catarina"
+  },
+  {
+    "id": 2,
+    "name": "José",
+    "age": 32,
+    "job": "Product Manager",
+    "state": "Rio Grande do Norte"
+  },
+  {
+    "id": 3,
+    "name": "Aderbal",
+    "age": 18,
+    "job": "Intern",
+    "state": "São Paulo"
+  },
+  {
+    "id": 4,
+    "name": "Danilo",
+    "age": 23,
+    "job": "Developer",
+    "state": "Santa Catarina"
+  },
+  {
+    "id": 5,
+    "name": "Luisa",
+    "age": 31,
+    "job": "UX Designer",
+    "state": "Santa Catarina"
+  },
+  {
+    "id": 6,
+    "name": "Vitoria",
+    "age": 35,
+    "job": "Tech Lead",
+    "state": "Rio Grande do Sul"
+  }
+]
