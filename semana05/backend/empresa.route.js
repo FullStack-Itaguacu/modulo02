@@ -8,6 +8,7 @@ const rotasDaEmpresa = Router()
 const { criarEmpresa } = require('./empresa.controller')
 
 rotasDaEmpresa.post('/criarEmpresa', criarEmpresa)
+rotasDaEmpresa.get('/listarEmpresasSalvas', controller.listarEmpresa)
 
 module.exports = rotasDaEmpresa
 

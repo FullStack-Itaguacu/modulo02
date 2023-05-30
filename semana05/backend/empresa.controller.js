@@ -61,5 +61,38 @@ module.exports = {
 
     criarOuAtualizar("empresa.json", totalDeEmpresas)
     return resposta.status(200).send({mensagem: "Criou e atualizou as empresas"})
+  },
+
+  async listarEmpresa(requisicao, resposta) {
+    const { busca } = requisicao.query // Parametro opcional de busca
+    const empresas = pegarDados('empresa.json')
+
+    if (!empresas) { // Se empresa não existir ou for null, deve retornar 204
+      return resposta.status(204).send()
+    }
+
+    // função para validar dados, se houver pelo menos uma propriedade válida, retorna true, se não false
+    const existeDadosValidos = Object.keys(empresas[0]).some((propriedade) => {
+      return propriedade === 'cnpj' ||
+        propriedade === 'nomeFantasia' ||
+        propriedade === 'dataDeCriacao'
+    })
+
+    // Caso seja falso, retorna 204
+    if (!existeDadosValidos) {
+      return resposta.status(204).send()
+    }
+
+    // Se não tiver a informação da busca, retorna todos os dados das empresas
+    if(!busca) {
+      return resposta.status(200).send({ mensagem: "Tem dados", dados: empresas })
+    }
+
+    // Filtro de empresas
+    const empresasFiltradas = empresas.filter(({nomeFantasia}) => 
+      nomeFantasia.includes(busca)
+    )
+
+    return resposta.status(200).send({ mensagem: "Tem dados", dados: empresasFiltradas })
   }
 }
