@@ -94,5 +94,42 @@ module.exports = {
     )
 
     return resposta.status(200).send({ mensagem: "Tem dados", dados: empresasFiltradas })
+  },
+
+  async atualizarEmpresa(requisicao, resposta) {
+    const { cnpj } = requisicao.params // Pegar o cnpj do params direto da rota
+    const { nomeFantasia, dataDeCriacao } = requisicao.body // Pegar o nomeFantasia e dataDeCriacao direto do body, lembrando que neste caso são opcionais
+    const empresas = pegarDados('empresa.json')
+    
+    // Se não houver empresas, lança um erro na requisição
+    if(!empresas) {
+      return resposta.status(400).send({mensagem: "Não existem dados para serem atualizados!"})
+    }
+
+    // Verificar se tem alguma empresa com aquele cnpj enviado, se houver pelo menos um, retorna true, se não false
+    const existePeloMenosUmaEmpresaComEsseCNPJ = empresas.some((empresa) => 
+      empresa.cnpj === cnpj
+    )    
+    
+    if(!existePeloMenosUmaEmpresaComEsseCNPJ) {
+      return resposta.status(404).send(
+        {mensagem: `Não existe nenhuma empresa com este cnpj ${cnpj}`}
+        )
+    }
+
+    // Alterar o retorno de dados da empresa para os dados novos
+    const alterarDadosDaEmpresa = empresas.map((empresa) => {
+      if(empresa.cnpj === cnpj) {
+        return {
+          cnpj: empresa.cnpj,
+          nomeFantasia: nomeFantasia ? nomeFantasia : empresa.nomeFantasia,
+          dataDeCriacao: dataDeCriacao ? dataDeCriacao : empresa.dataDeCriacao
+        }
+      }
+      return empresa
+    })
+
+    criarOuAtualizar('empresa.json', alterarDadosDaEmpresa)
+    return resposta.status(200).send({mensagem: "Atualizou a empresa!"})
   }
 }
