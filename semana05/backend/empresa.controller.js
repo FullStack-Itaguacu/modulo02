@@ -67,7 +67,7 @@ module.exports = {
     const { busca } = requisicao.query // Parametro opcional de busca
     const empresas = pegarDados('empresa.json')
 
-    if (!empresas) { // Se empresa não existir ou for null, deve retornar 204
+    if (!empresas || empresas.length === 0) { // Se empresa não existir ou for null, deve retornar 204
       return resposta.status(204).send()
     }
 
@@ -131,5 +131,29 @@ module.exports = {
 
     criarOuAtualizar('empresa.json', alterarDadosDaEmpresa)
     return resposta.status(200).send({mensagem: "Atualizou a empresa!"})
+  },
+  async excluirEmpresa(requisicao, resposta) {
+    const { cnpj } = requisicao.params
+    const empresas = pegarDados('empresa.json')
+
+    if(!empresas) {
+      return resposta.status(400).send({mensagem: "Não existem dados para serem atualizados!"})
+    }
+
+    const existePeloMenosUmaEmpresaComEsseCNPJ = empresas.some((empresa) => 
+      empresa.cnpj === cnpj
+    )    
+    
+    if(!existePeloMenosUmaEmpresaComEsseCNPJ) {
+      return resposta.status(404).send(
+        {mensagem: `Não existe nenhuma empresa com este cnpj ${cnpj}`}
+        )
+    }
+
+    const empresasFiltradas = empresas.filter((empresa) => empresa.cnpj !== cnpj)
+
+    criarOuAtualizar('empresa.json', empresasFiltradas)
+
+    return resposta.status(200).send({mensagem: "Empresa excluída"})
   }
 }

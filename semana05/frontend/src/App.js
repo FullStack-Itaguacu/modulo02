@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     const carregar = async () => {
       const resposta = await axios.get('http://localhost:3333/listarEmpresasSalvas')
-      setLista(resposta.data.dados)
+      setLista(resposta.data?.dados || [])
     }
     carregar()
   }, [atualizarLista])
@@ -20,17 +20,30 @@ function App() {
       dataDeCriacao: new Date()
     })
     setAtualizarLista(!atualizarLista)
-    console.log(resposta)
+    alert(resposta.data.mensagem)
+
+  }
+
+  async function excluirEmpresa(cnpj) {
+    const resposta = await axios.delete(`http://localhost:3333/excluirEmpresa/`+cnpj)
+    setAtualizarLista(!atualizarLista)
+    alert(resposta.data.mensagem)
   }
 
   return (
     <div>
       {
-        lista.map((empresa) => {
+        lista.length === 0 ? <p>Não tem empresas salvas!</p> :
+        lista.map((empresa, index) => {
           return (
-              <p key={empresa.nomeFantasia}>
+            <div key={index}>
+              <p>
                 {empresa.nomeFantasia} - {empresa.cnpj} - {empresa.dataDeCriacao}
               </p>
+              <button type="button" onClick={() => excluirEmpresa(empresa.cnpj)}>
+                Excluir empresa
+              </button>
+            </div>
           )
         })
       }
