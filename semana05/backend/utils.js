@@ -6,6 +6,15 @@ function validaEmail(email) {
   return regex.test(email);
 }
 
+function codigosDeErros(codigo){
+  const mensagens = {
+    falhaAoSalvar: "Não pode salvar!",
+    naoPodeDeletar: "Não pôde deletar item"
+  }
+
+  return mensagens[codigo] || "Erro não identificado"
+}
+
 function criarOuAtualizar(nomeDoArquivo, dados) {
   try {
     sistemasDeArquivos.writeFileSync('' + nomeDoArquivo, 
@@ -29,5 +38,6 @@ function pegarDados(nomeDoArquivo) {
 module.exports = {
   validaEmail,
   criarOuAtualizar,
-  pegarDados
+  pegarDados,
+  codigosDeErros
 }

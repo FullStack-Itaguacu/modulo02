@@ -1,4 +1,5 @@
-const { criarOuAtualizar, pegarDados } = require('./utils')
+const { criarOuAtualizar, pegarDados, codigosDeErros } = require('./utils')
+const { writeFileSync } = require('fs')
 
 module.exports = {
   async verificarEmpresa(requisicao, resposta, proximo) {
@@ -113,7 +114,7 @@ module.exports = {
     
     if(!existePeloMenosUmaEmpresaComEsseCNPJ) {
       return resposta.status(404).send(
-        {mensagem: `Não existe nenhuma empresa com este cnpj ${cnpj}`}
+        {mensagem: codigosDeErros('teste')}
         )
     }
 
@@ -155,5 +156,11 @@ module.exports = {
     criarOuAtualizar('empresa.json', empresasFiltradas)
 
     return resposta.status(200).send({mensagem: "Empresa excluída"})
+  },
+  async salvarImagem(requisicao, resposta) {
+    const {originalname, buffer} = requisicao.file
+    console.log(originalname, buffer)
+    writeFileSync(originalname, buffer)
+    return resposta.status(201).send({mensagem: "salvou a imagem"})
   }
 }
