@@ -40,3 +40,9 @@ create table ParticipantesEventos (
 	FOREIGN key (participante_id) references Participante(Id),
 	FOREIGN key (evento_id) references Evento(Id)
 );
+
+select participante.nome, evento.nome * from participante, evento;
+
+
+
+
