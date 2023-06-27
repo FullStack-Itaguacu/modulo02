@@ -11,10 +11,8 @@ class CategoryController {
     return response.status(201).send(data)
   }
 
-  async listOneCategory (request, response) {
-    const data = await Category.findAll({
-      where: { name: "Vendas"}
-    })
+  async listCategories (request, response) {
+    const data = await Category.findAll()
 
     return response.status(200).send(data)
   }
