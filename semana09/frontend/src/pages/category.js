@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { api } from '../services/api';
+import { Link } from "react-router-dom";
 
 function Category() {
   const [categories, setCategories] = useState([])
@@ -28,7 +29,7 @@ function Category() {
       <h3 style={{ textAlign: 'center' }}>Categorias</h3>
 
       <form
-        onSubmit={onSubmitHandler} 
+        onSubmit={onSubmitHandler}
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', justifyItems: 'center', padding: 8 }}>
         <input
           id="name"
@@ -81,6 +82,16 @@ function Category() {
               textAlign: 'left',
               padding: 8
             }}>Atualizado em</th>
+            <th style={{
+              border: '1px solid #dddddd',
+              textAlign: 'left',
+              padding: 8
+            }}>Editar Registro</th>
+            <th style={{
+              border: '1px solid #dddddd',
+              textAlign: 'left',
+              padding: 8
+            }}>Deletar Registro</th>
           </tr>
           {
             categories.map(({ id, name, createdAt, updatedAt }) => {
@@ -106,6 +117,16 @@ function Category() {
                     textAlign: 'left',
                     padding: 8
                   }}>{updatedAt}</td>
+                  <td style={{
+                    border: '1px solid #dddddd',
+                    textAlign: 'left',
+                    padding: 8
+                  }}><Link to={`/edit/${id}`} >Editar</Link></td>
+                  <td style={{
+                    border: '1px solid #dddddd',
+                    textAlign: 'left',
+                    padding: 8
+                  }}><Link>Excluir</Link></td>
                 </tr>
               )
             })

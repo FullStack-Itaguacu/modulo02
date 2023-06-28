@@ -16,6 +16,13 @@ class CategoryController {
 
     return response.status(200).send(data)
   }
+
+  async listOneCategory (request, response) {
+    const { id } = request.params
+    const data = await Category.findByPk(id)
+
+    return response.status(200).send(data)
+  }
 }
 
 module.exports = new CategoryController()

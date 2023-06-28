@@ -4,6 +4,7 @@ import { NotFound } from '../pages/notFound';
 import { Contract } from '../pages/contracts';
 import { Company } from '../pages/company';
 import { Trainee } from '../pages/trainee';
+import { Edit } from '../pages/edit';
 
 function PublicRoutes() {
   return (
@@ -14,6 +15,7 @@ function PublicRoutes() {
         <Route path="/contracts" element={<Contract />} />
         <Route path="/companies" element={<Company />} />
         <Route path="/trainees" element={<Trainee />} />
+        <Route path="/edit/:id" element={<Edit />} />
       </Routes>
     </Router>
   )
