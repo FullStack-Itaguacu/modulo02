@@ -23,6 +23,12 @@ function Category() {
     setChangeState(!changeState)
   }
 
+  const deleteOneCategory = async (id) => {
+    await api.delete(`/api/deleteOneCategory/${id}`);
+    alert("Categoria deletada com sucesso.")
+    setChangeState(!changeState)
+  }
+
   return (
     <main>
       <Header />
@@ -121,12 +127,12 @@ function Category() {
                     border: '1px solid #dddddd',
                     textAlign: 'left',
                     padding: 8
-                  }}><Link to={`/edit/${id}`} >Editar</Link></td>
+                  }}><Link to={`/edit/${id}/Category`} >Editar</Link></td>
                   <td style={{
                     border: '1px solid #dddddd',
                     textAlign: 'left',
                     padding: 8
-                  }}><Link>Excluir</Link></td>
+                  }}><button onClick={() => deleteOneCategory(id)}>Excluir</button></td>
                 </tr>
               )
             })

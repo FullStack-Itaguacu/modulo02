@@ -15,7 +15,7 @@ function PublicRoutes() {
         <Route path="/contracts" element={<Contract />} />
         <Route path="/companies" element={<Company />} />
         <Route path="/trainees" element={<Trainee />} />
-        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/edit/:id/:page" element={<Edit />} />
       </Routes>
     </Router>
   )
