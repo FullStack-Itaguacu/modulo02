@@ -10,8 +10,8 @@ function Category() {
 
   useEffect(() => {
     const load = async () => {
-      const response = await api.get('/api/listCategories')
-      setCategories(response.data)
+      const response = await api.get('/api/listCategories/0/5')
+      setCategories(response.data.records)
     }
     load()
   }, [changeState])

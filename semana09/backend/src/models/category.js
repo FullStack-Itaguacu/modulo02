@@ -6,7 +6,7 @@ const Category = connection.define("category", {
   createdAt: DATE,
   updatedAt: DATE,
 },
-{ underscored: true });
+{ underscored: true, paranoid: true });
 
 module.exports = {
   Category

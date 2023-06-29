@@ -46,7 +46,7 @@ const Trainee = connection.define("trainee", {
   haveSpecialNeeds: BOOLEAN,
   createdAt: DATE,
   updatedAt: DATE,
-}, {underscored: true})
+}, { underscored: true, paranoid: true })
 
 module.exports = {
   Trainee

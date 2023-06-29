@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from "../services/api";
-import { fieldsCategory } from "../utils/constants"
+import { fieldsCategory, fieldsTrainee } from "../utils/constants"
 
 function Edit() {
   const { id, page } = useParams()
-  const [form, setForm] = useState([])
+  const [form, setForm] = useState({})
   const navigate = useNavigate();
 
   const fields = {
-    Category: fieldsCategory
+    Category: fieldsCategory,
+    Trainee: fieldsTrainee
   }
 
   useEffect(() => {

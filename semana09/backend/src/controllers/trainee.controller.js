@@ -32,8 +32,25 @@ class TraineeController {
     return response.status(201).send(data)
    } catch (error) {
     console.error(error.message)
-    return response.status(400).send({message: "Não foi possível criar um registro de estagiário", cause: error.message})
+    return response.status(400).send(
+      {
+        message: "Não foi possível criar um registro de estagiário", 
+        cause: error.message
+      })
    }
+  }
+
+  async listTrainees (request, response) {
+    const data = await Trainee.findAll()
+
+    return response.status(200).send(data)
+  }
+
+  async listOneTrainee (request, response) {
+    const { id } = request.params
+    const data = await Trainee.findByPk(id)
+
+    return response.status(200).send(data)
   }
 }
 
