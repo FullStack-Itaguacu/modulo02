@@ -1,4 +1,4 @@
-const { createOneTrainee, listTrainees, listOneTrainee } = require('../controllers/trainee.controller');
+const { createOneTrainee, listTrainees, listOneTrainee, updateOneTrainee } = require('../controllers/trainee.controller');
 const { Router } = require('express')
 
 class TraineeRouter {
@@ -7,6 +7,7 @@ class TraineeRouter {
     traineeRoutes.post('/createOneTrainee', createOneTrainee)
     traineeRoutes.get('/listTrainees', listTrainees)
     traineeRoutes.get('/listOneTrainee/:id', listOneTrainee)
+    traineeRoutes.patch('/updateOneTrainee/:id', updateOneTrainee)
 
     return traineeRoutes
   }

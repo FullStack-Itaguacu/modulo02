@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { api } from "../services/api";
-import { fieldsCategory, fieldsTrainee } from "../utils/constants"
+import { fieldsCategory, fieldsContract, fieldsTrainee } from "../utils/constants"
+import { isBoolean } from "../utils/functions";
 
 function Edit() {
   const { id, page } = useParams()
@@ -11,7 +12,8 @@ function Edit() {
 
   const fields = {
     Category: fieldsCategory,
-    Trainee: fieldsTrainee
+    Trainee: fieldsTrainee,
+    Contract: fieldsContract
   }
 
   useEffect(() => {
@@ -24,7 +26,7 @@ function Edit() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault()
-    await api.patch(`/api/updateOne${page}/${id}` , {
+    await api.patch(`/api/updateOne${page}/${id}`, {
       ...form
     })
     navigate(-1)
@@ -48,6 +50,22 @@ function Edit() {
           Object.keys(form)
             .filter((field) => fields[page][field].visible === true)
             .map((field) => {
+              if (isBoolean(form[field])) {
+                return (
+                  <select
+                    key={field} defaultValue={form[field] ? "Sim" : "Não"}
+                    onChange={(event) => {
+                      setForm({
+                        ...form,
+                        [field]: event.target.value === "Sim"
+                      })
+                    }}
+                  >
+                    <option>Sim</option>
+                    <option>Não</option>
+                  </select>
+                )
+              }
               return (
                 <input
                   key={field}
@@ -68,6 +86,7 @@ function Edit() {
           value="Salvar alterações"
           type="submit"
         />
+        <Link to={-1}>Retornar a página anterior.</Link>
       </form>
     </main>
   );

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Category } from '../pages/category';
 import { NotFound } from '../pages/notFound';
-import { Contract } from '../pages/contracts';
+import { Contract } from '../pages/contract';
 import { Company } from '../pages/company';
 import { Trainee } from '../pages/trainee';
 import { Edit } from '../pages/edit';

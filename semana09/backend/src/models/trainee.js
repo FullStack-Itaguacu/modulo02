@@ -48,6 +48,4 @@ const Trainee = connection.define("trainee", {
   updatedAt: DATE,
 }, { underscored: true, paranoid: true })
 
-module.exports = {
-  Trainee
-}
+module.exports = { Trainee }

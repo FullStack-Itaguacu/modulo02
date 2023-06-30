@@ -4,50 +4,77 @@ import { api } from "../services/api";
 import { Table } from "../components/Table";
 import { Modal } from "../components/Modal";
 
-function Trainee() {
+function Contract() {
+  const [contracts, setContracts] = useState([])
   const [trainees, setTrainees] = useState([])
+  const [companies, setCompanies] = useState([])
+  const [categories, setCategories] = useState([])
   const [showModal, setShowModal] = useState(false);
   const [changeState, setChangeState] = useState(true)
   const [form, setForm] = useState({})
 
   const fields = [
-    { key: "name", placeholder: "Nome", isRequired: true, type: "text" },
-    { key: "email", placeholder: "Email", isRequired: true, type: "email" },
-    { key: "rg", placeholder: "RG", isRequired: true, type: "number" },
-    { key: "cpf", placeholder: "CPF", isRequired: true, type: "number" },
-    { key: "primaryPhoneContact", placeholder: "Telefone Celular", isRequired: true, type: "tel" },
-    { key: "secondaryPhoneContact", placeholder: "Outro telefone", isRequired: false, type: "tel" },
-    { key: "dateBirth", placeholder: "Data de Nascimento", isRequired: true, type: "date" },
-    { key: "fatherName", placeholder: "Nome do Pai", isRequired: true, type: "text" },
-    { key: "motherName", placeholder: "Nome da Mãe", isRequired: true, type: "text" },
-    { key: "haveSpecialNeeds", placeholder: "Tem necessidades especiais?", isRequired: true, type: "select", list: [{ key: true, label: "Sim" }, { key: false, label: "Não" }] },
+    { key: "remuneration", placeholder: "Salário", isRequired: true, type: "number" },
+    { key: "extra", placeholder: "Benefícios", isRequired: true, type: "number" },
+    { key: "startValidity", placeholder: "Início do Contrato", isRequired: true, type: "date" },
+    { key: "endValidity", placeholder: "Fim do Contrato", isRequired: true, type: "date" },
+    { key: "status", placeholder: "Status do Contrato", isRequired: true, type: "select", list: [{ key: true, label: "Ativo" }, { key: false, label: "Inativo" }] },
+    { key: "traineeId", placeholder: "Banco de dados estagiários", isRequired: true, type: "select", list: trainees },
+    { key: "categoryId", placeholder: "Categorias", isRequired: true, type: "select", list: categories },
+    { key: "companyId", placeholder: "Empresas", isRequired: true, type: "select", list: companies },
   ]
 
   useEffect(() => {
     const load = async () => {
-      const response = await api.get('/api/listTrainees')
-      setTrainees(response.data)
+      const response = await api.get('/api/listContracts')
+      const responseTrainee = await api.get('/api/listTrainees')
+      const responseCompany = await api.get('/api/listCompanies')
+      const responseCategory = await api.get('/api/listCategories/0/10')
+
+      const resultTrainee = responseTrainee.data.map(({name, id}) => {
+        return {
+          key: id, 
+          label: name
+        }
+      })
+
+      const resultCompany = responseCompany.data.map(({companyName, id}) => {
+        return {
+          key: id, 
+          label: companyName
+        }
+      })
+
+      const resultCategory = responseCategory.data.records.map(({name, id}) => {
+        return {
+          key: id, 
+          label: name
+        }
+      })
+      setContracts(response.data.records)
+      setTrainees(resultTrainee)
+      setCompanies(resultCompany)
+      setCategories(resultCategory)
     }
     load()
   }, [changeState])
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    await api.post('/api/createOneTrainee', form);
+    await api.post('/api/createOneContract', form);
     alert("Criado com sucesso.")
     setChangeState(!changeState)
     setShowModal(false)
   }
 
-  const deleteOneTrainee = async (id) => {
+  const deleteOneContract = async (id) => {
     try {
-      await api.delete(`/api/deleteOneTrainee/${id}`);
-      alert("Estagiário deletado com sucesso.")
+      await api.delete(`/api/deleteOneContract/${id}`);
+      alert("Contrato deletado com sucesso.")
       setChangeState(!changeState)
     } catch (error) {
       console.log(error.message)
-      alert(`Não foi possível excluir \nCausa: ${error.message}`)
-
+      alert(`Não foi possível excluir! \nCausa: ${error.message}`)
     }
   }
 
@@ -60,8 +87,8 @@ function Trainee() {
         alignItems: "center",
         margin: 8
       }}>
-        <p>Estagiários</p>
-        <button onClick={() => setShowModal(true)}>Criar novo estagiário</button>
+        <p>Contratos</p>
+        <button onClick={() => setShowModal(true)}>Criar novo contrato</button>
       </div>
       <Modal
         show={showModal}
@@ -162,12 +189,12 @@ function Trainee() {
         </form>
       </Modal>
       {
-        trainees && (
+        contracts && (
           <Table
-            list={trainees}
-            page="Trainee"
-            fieldsTable={["id", "name", "primaryPhoneContact", "secondaryPhoneContact", "haveSpecialNeeds"]}
-            deleteFuncion={deleteOneTrainee}
+            list={contracts}
+            page="Contract"
+            fieldsTable={["id", "traineeName", "primaryPhoneContact", "companyName", "supervisorName"]}
+            deleteFuncion={deleteOneContract}
           />
         )
       }
@@ -175,4 +202,4 @@ function Trainee() {
   );
 }
 
-export { Trainee };
+export { Contract };
