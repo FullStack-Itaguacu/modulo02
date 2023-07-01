@@ -17,10 +17,15 @@ function Category() {
   }, [changeState])
 
   const onSubmitHandler = async (event) => {
-    event.preventDefault();
-    await api.post('/api/createOneCategory', form);
-    alert("Criado com sucesso.")
-    setChangeState(!changeState)
+    try {
+      event.preventDefault();
+      await api.post('/api/createOneCategory', form);
+      alert("Criado com sucesso.")
+      setChangeState(!changeState)
+    } catch (error) {
+      console.log(error)
+      alert(error.response.data.message)
+    }
   }
 
   const deleteOneCategory = async (id) => {

@@ -45,12 +45,7 @@ class CompanyController {
   }
 
   async listCompanies (request, response) {
-    const data = await Company.findAll({
-      attributes: [
-        "cnpj",
-        "companyName"
-      ] //Trazer campos como select
-    })
+    const data = await Company.findAll()
 
     return response.status(200).send(data)
   }

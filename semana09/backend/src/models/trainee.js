@@ -2,7 +2,9 @@ const { STRING, DATE, BOOLEAN } = require('sequelize');
 const { connection } = require('../database/connection');
 
 const Trainee = connection.define("trainee", {
-  name: STRING,
+  name: {
+    type: STRING,
+  },
   // email: {
   //   validate: {
   //     isEmail: {
@@ -20,7 +22,7 @@ const Trainee = connection.define("trainee", {
       }
     },
     unique: {
-      msg: "Este campo já está na aplicação"
+      msg: "Este campo rg já está na aplicação"
     }
   },
   cpf: {
@@ -32,7 +34,7 @@ const Trainee = connection.define("trainee", {
       }
     },
     unique: {
-      msg: "Este campo já está na aplicação"
+      msg: "Este campo cpf já está na aplicação"
     }
   },
   primaryPhoneContact: STRING,

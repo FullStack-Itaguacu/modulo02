@@ -69,7 +69,8 @@ class ContractController {
         traineeName: item.trainee.name,
         primaryPhoneContact: item.trainee.primaryPhoneContact,
         companyName: item.company.companyName,
-        supervisorName: item.company.supervisorName
+        supervisorName: item.company.supervisorName,
+        categoryName: item.category.name
       }
     })
 

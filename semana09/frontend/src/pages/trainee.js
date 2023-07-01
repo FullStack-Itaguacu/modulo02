@@ -32,11 +32,16 @@ function Trainee() {
   }, [changeState])
 
   const onSubmitHandler = async (event) => {
-    event.preventDefault();
-    await api.post('/api/createOneTrainee', form);
-    alert("Criado com sucesso.")
-    setChangeState(!changeState)
-    setShowModal(false)
+    try {
+      event.preventDefault();
+      await api.post('/api/createOneTrainee', form);
+      alert("Criado com sucesso.")
+      setChangeState(!changeState)
+      setShowModal(false)
+    } catch (error) {
+      console.log(error)
+      alert(`${error.response.data.message}\nCausa: ${error.response.data.cause}`)
+    }
   }
 
   const deleteOneTrainee = async (id) => {

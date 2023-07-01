@@ -193,7 +193,14 @@ function Contract() {
           <Table
             list={contracts}
             page="Contract"
-            fieldsTable={["id", "traineeName", "primaryPhoneContact", "companyName", "supervisorName"]}
+            fieldsTable={[
+              "id", 
+              "traineeName",
+              "primaryPhoneContact",
+              "companyName", 
+              "supervisorName",
+              "categoryName"
+            ]}
             deleteFuncion={deleteOneContract}
           />
         )
