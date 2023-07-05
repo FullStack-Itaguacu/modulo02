@@ -1,5 +1,8 @@
 const { Category } = require('../models/category')
 const { listCategoriesService } = require('../services/category.services')
+const { verify } = require('jsonwebtoken')
+const { config } = require('dotenv')
+config()
 
 class CategoryController {
   async createOneCategory (request, response) {
@@ -21,6 +24,7 @@ class CategoryController {
   }
 
   async listCategories (request, response) {
+
     const {offset, limit} = request.params
 
     const data = await listCategoriesService(offset, limit)
@@ -31,18 +35,23 @@ class CategoryController {
   }
 
   async listOneCategory (request, response) {
-    const { id } = request.params
-    const { key } = request.headers
+
+    const { Authorization } = request.headers
+    console.log(Authorization)
+    console.log(verify(Authorization, "chocolate"))
 
 
-    if(key === 'Safe Person'){
+    if ("chocolate" === "chocolate") {
+      const { id } = request.params
+
       const data = await Category.findByPk(id)
 
       return response.status(200).send(data)
     }
-    else{
-      return response.status(400).send("Acesso Negado")
-    }    
+    else {
+      return response.status(401).send({"msg": "Acesso Negado"})
+    }
+    
   }
 
   async updateOneCategory (request, response) {

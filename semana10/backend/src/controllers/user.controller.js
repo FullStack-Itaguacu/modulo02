@@ -1,4 +1,7 @@
 const { User  } = require('../models/user')
+const { sign } = require('jsonwebtoken')
+const { config } = require('dotenv')
+config()
 
 class UserController{
     async createOneUser(request, response){
@@ -47,8 +50,14 @@ class UserController{
             console.log(user)
     
             if (user.password === password){
+                const payload = {"email": user.email}
+
+                console.log(process.env.SECRET_JWT)
+
+                const token = sign(payload, "chocolate")
+                console.log(token)
                 console.log("Senha Igual")
-                return response.status(200).send({"palavra_secreta":"chocolate"}) 
+                return response.status(200).send({token}) 
             }
             else {
                 console.log("Senha Diferente")
