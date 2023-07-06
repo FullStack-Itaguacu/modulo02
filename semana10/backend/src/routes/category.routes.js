@@ -1,14 +1,16 @@
 const { createOneCategory, listCategories, listOneCategory, updateOneCategory, deleteOneCategory } = require('../controllers/category.controller');
 const { Router } = require('express')
+const { auth } = require('../middleware/auth')
+const { loggin } = require('../middleware/loggin')
 
 class CategoryRouter {
   routesFromCategory () {
     const categoryRoutes = Router()
-    categoryRoutes.post('/createOneCategory', createOneCategory)
-    categoryRoutes.get('/listCategories/:offset/:limit', listCategories)
-    categoryRoutes.get('/listOneCategory/:id', listOneCategory)
-    categoryRoutes.patch('/updateOneCategory/:id', updateOneCategory)
-    categoryRoutes.delete('/deleteOneCategory/:id', deleteOneCategory)
+    categoryRoutes.post('/createOneCategory', auth, createOneCategory)
+    categoryRoutes.get('/listCategories/:offset/:limit', auth, loggin, listCategories)
+    categoryRoutes.get('/listOneCategory/:id', auth, loggin, listOneCategory)
+    categoryRoutes.patch('/updateOneCategory/:id', auth, updateOneCategory)
+    categoryRoutes.delete('/deleteOneCategory/:id', auth, deleteOneCategory)
 
     return categoryRoutes
   }

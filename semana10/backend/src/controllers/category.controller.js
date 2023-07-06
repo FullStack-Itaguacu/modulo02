@@ -35,23 +35,11 @@ class CategoryController {
   }
 
   async listOneCategory (request, response) {
-
-    const { Authorization } = request.headers
-    console.log(Authorization)
-    console.log(verify(Authorization, "chocolate"))
-
-
-    if ("chocolate" === "chocolate") {
+      console.log("Entramos no ListOneCategory")
       const { id } = request.params
-
       const data = await Category.findByPk(id)
 
       return response.status(200).send(data)
-    }
-    else {
-      return response.status(401).send({"msg": "Acesso Negado"})
-    }
-    
   }
 
   async updateOneCategory (request, response) {

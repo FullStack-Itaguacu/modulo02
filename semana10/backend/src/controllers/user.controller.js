@@ -52,11 +52,7 @@ class UserController{
             if (user.password === password){
                 const payload = {"email": user.email}
 
-                console.log(process.env.SECRET_JWT)
-
-                const token = sign(payload, "chocolate")
-                console.log(token)
-                console.log("Senha Igual")
+                const token = sign(payload, process.env.SECRET_JWT)
                 return response.status(200).send({token}) 
             }
             else {

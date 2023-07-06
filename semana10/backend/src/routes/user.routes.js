@@ -3,7 +3,7 @@ const { Router } = require('express')
 
 class UserRouter{
     routesFromUser () {
-        const userRoutes  = Router()
+        const userRoutes = Router()
         userRoutes.post('/createOneUser', createOneUser)
         userRoutes.post('/loginUser', loginUser)
         return userRoutes
