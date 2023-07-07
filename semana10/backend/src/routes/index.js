@@ -4,6 +4,7 @@ const { routesFromTrainee } = require('./trainee.routes')
 const { routesFromCompany } = require('./company.routes')
 const { routesFromContract } = require('./contract.routes')
 const { routesFromUser } = require('./user.routes')
+const { routesFromRBAC } = require('./rbac.routes')
 
 const routes = new Router()
 
@@ -12,7 +13,8 @@ routes.use('/api', [
   routesFromTrainee(),
   routesFromCompany(),
   routesFromContract(),
-  routesFromUser()
+  routesFromUser(),
+  routesFromRBAC()
 ])
 
 module.exports = routes
