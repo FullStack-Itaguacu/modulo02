@@ -5,13 +5,14 @@ import { Contract } from '../pages/contract';
 import { Company } from '../pages/company';
 import { Trainee } from '../pages/trainee';
 import { Edit } from '../pages/edit';
+import { Login } from '../pages/login';
 
 function PublicRoutes() {
   return (
     <Router>
       <Routes>
         <Route path='*' element={<NotFound />} />
-        <Route path="/" element={<Category />} />
+        <Route path="/" element={<Login />} />
         <Route path="/contracts" element={<Contract />} />
         <Route path="/companies" element={<Company />} />
         <Route path="/trainees" element={<Trainee />} />

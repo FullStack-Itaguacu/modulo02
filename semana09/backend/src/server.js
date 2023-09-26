@@ -27,7 +27,7 @@ class Server {
     }
   }
   async initializeServer(app) {
-    const PORT = 5000 // Valor da porta do servidor
+    const PORT = 3333 // Valor da porta do servidor
     app.listen(PORT, () => console.log(`Servidor executando na porta ${PORT}`)) // Execução do servidor
   }
 

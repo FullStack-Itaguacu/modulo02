@@ -11,16 +11,6 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      trainee_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'trainees'
-          },
-          key: 'id'
-        },
-        allowNull: true
-      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
