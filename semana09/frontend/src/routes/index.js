@@ -1,25 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Category } from '../pages/category';
-import { NotFound } from '../pages/notFound';
-import { Contract } from '../pages/contract';
-import { Company } from '../pages/company';
-import { Trainee } from '../pages/trainee';
-import { Edit } from '../pages/edit';
-import { Login } from '../pages/login';
+import { PrivateRoutes } from "./privateRoutes"
+import { PublicRoutes } from "./publicRoutes"
+import {useAuth} from "../hooks/useAuth"
 
-function PublicRoutes() {
+function RoutesApp() {
+  const {accessToken} = useAuth()
+
+  if (accessToken) {
+    return (
+      <PrivateRoutes />
+    )
+  }
+
   return (
-    <Router>
-      <Routes>
-        <Route path='*' element={<NotFound />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/contracts" element={<Contract />} />
-        <Route path="/companies" element={<Company />} />
-        <Route path="/trainees" element={<Trainee />} />
-        <Route path="/edit/:id/:page" element={<Edit />} />
-      </Routes>
-    </Router>
+    <PublicRoutes />
   )
 }
 
-export { PublicRoutes }
+export { RoutesApp }

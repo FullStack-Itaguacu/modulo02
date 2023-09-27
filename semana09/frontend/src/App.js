@@ -1,10 +1,11 @@
-import { PublicRoutes } from "./routes";
+import { AuthProvider } from "./context/authContext";
+import { RoutesApp } from "./routes";
 
 function App() {
   return (
-    <>
-      <PublicRoutes/>
-    </>
+    <AuthProvider>
+      <RoutesApp/>
+    </AuthProvider>
   );
 }
 
