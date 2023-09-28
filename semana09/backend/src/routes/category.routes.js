@@ -6,7 +6,7 @@ class CategoryRouter {
   routesFromCategory () {
     const categoryRoutes = Router()
     categoryRoutes.post('/createOneCategory', createOneCategory)
-    categoryRoutes.get('/listCategories/:offset/:limit', auth, listCategories)
+    categoryRoutes.get('/listCategories/:offset/:limit', listCategories)
     categoryRoutes.get('/listOneCategory/:id', listOneCategory)
     categoryRoutes.patch('/updateOneCategory/:id', updateOneCategory)
     categoryRoutes.delete('/deleteOneCategory/:id', deleteOneCategory)

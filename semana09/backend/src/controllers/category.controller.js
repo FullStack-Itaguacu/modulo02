@@ -1,5 +1,6 @@
 const { Category } = require('../models/category')
 const { listCategoriesService } = require('../services/category.services')
+const {sendMail} = require('../services/email.service')
 class CategoryController {
   async createOneCategory (request, response) {
     try {
@@ -25,7 +26,7 @@ class CategoryController {
     const data = await listCategoriesService(offset, limit)
 
     const total = await Category.count()
-
+    sendMail()
     return response.status(200).send({records: data, total})
   }
 
