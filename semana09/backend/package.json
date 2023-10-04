@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon src/index.js"
+    "start:dev": "nodemon src/index.js",
+    "start-gendoc": "node src/utils/swagger.js"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,9 @@
     "nodemailer": "^6.9.5",
     "pg": "^8.11.0",
     "pg-connection-string": "^2.6.0",
-    "sequelize": "^6.32.1"
+    "sequelize": "^6.32.1",
+    "swagger-autogen": "^2.23.6",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22",

@@ -3,6 +3,7 @@ const { Router } = require('express')
 
 class CompanyRouter {
   routesFromCompany () {
+
     const companyRoutes = Router()
     companyRoutes.post('/createOneCompany', createOneCompany)
     companyRoutes.get('/listCompanies', listCompanies)

@@ -2,7 +2,9 @@ const { Category } = require('../models/category')
 const { listCategoriesService } = require('../services/category.services')
 const {sendMail} = require('../services/email.service')
 class CategoryController {
+  // #swagger.tags = ['Categories']
   async createOneCategory (request, response) {
+
     try {
       const { name } = request.body
       if(!name) {
@@ -21,6 +23,7 @@ class CategoryController {
   }
 
   async listCategories (request, response) {
+
     const {offset, limit} = request.params
 
     const data = await listCategoriesService(offset, limit)
@@ -31,6 +34,7 @@ class CategoryController {
   }
 
   async listOneCategory (request, response) {
+
     const { id } = request.params
     const data = await Category.findByPk(id)
 
@@ -38,6 +42,7 @@ class CategoryController {
   }
 
   async updateOneCategory (request, response) {
+
     const { id } = request.params
     const { name } = request.body
     
@@ -50,6 +55,7 @@ class CategoryController {
   }
 
   async deleteOneCategory (request, response) {
+
     const { id } = request.params
     await Category.destroy(
       {

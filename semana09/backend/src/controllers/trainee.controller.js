@@ -54,6 +54,14 @@ class TraineeController {
   }
 
   async updateOneTrainee(request, response) {
+    /*
+            #swagger.parameters['id'] = {
+                in: 'path',
+                description: 'Trainee ID.',
+                required: true,
+                type: 'integer'
+            }
+    */
     const { id } = request.params
     const {
       email,
